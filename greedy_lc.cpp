@@ -83,7 +83,8 @@ vector<vector<int>> grasp_greedy(const vector<vector<int>> m, int N, float alpha
   }
 
   sort(averages.begin(), averages.end(), comp);
-  averages.resize(N * alpha);
+  averages.resize(N * alpha+1);
+  
   srand(time(0));
   for (int i = 0; i < N; i++)
   {
@@ -97,7 +98,7 @@ vector<vector<int>> grasp_greedy(const vector<vector<int>> m, int N, float alpha
         break;
       }
     }
-    x[random_index][i];
+    x[struct_index][i] = 1;
   }
 
   return corrector(x, m, N);
@@ -194,7 +195,7 @@ int main()
   // Read N
   while (getline(infile, line))
   {
-    if (line.find("N") != string::npos)
+    if (line.find("N") != string::npos) 
     {
       size_t eq = line.find('=');
       if (eq != string::npos)
@@ -244,36 +245,46 @@ int main()
 
   cout << "The only greedy Solution:" << endl;
   vector<vector<int>> x = only_greedy(m, N);
+  int counter = 0;
   for (int i = 0; i < N; ++i)
   {
     for (int j = 0; j < N; ++j)
     {
+      if (x[i][j] != 0) counter+=m[i][j];
       cout << x[i][j] << " ";
     }
     cout << endl;
   }
 
+  cout << "Points with only greedy: " << counter << endl;
+  counter = 0;
   cout << "The greedy + local search Solution:" << endl;
   vector<vector<int>> y = local_search(x, m, N);
   for (int i = 0; i < N; ++i)
   {
     for (int j = 0; j < N; ++j)
     {
+      if (y[i][j] != 0) counter+=m[i][j];
       cout << y[i][j] << " ";
     }
     cout << endl;
   }
 
+  cout << "Points with greedy solution and local search enhancement: " << counter << endl;
+  counter = 0;
   cout << "The grasp solution:" << endl;
-  vector<vector<int>> z = grasp_greedy(m, N, 0.1);
+  vector<vector<int>> z = grasp_greedy(m, N, 0.4);
   for (int i = 0; i < N; ++i)
   {
     for (int j = 0; j < N; ++j)
     {
-      cout << y[i][j] << " ";
+      if (z[i][j] != 0) counter+=m[i][j];
+      cout << z[i][j] << " ";
     }
     cout << endl;
   }
+
+  cout << "Points with GRASP solution: " << counter << endl;
 
   return 0;
 }
