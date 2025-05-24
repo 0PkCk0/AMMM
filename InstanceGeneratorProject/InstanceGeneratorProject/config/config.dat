@@ -1,9 +1,0 @@
-# file name: ../AMMMLabHeuristics/data/tune_XX.dat
-instancesDirectory = output;
-fileNamePrefix = instance;
-fileNameExtension = dat;
-numInstances = 2;
-
-numMembers = 10;
-minBet = 1;
-maxBet = 10;
