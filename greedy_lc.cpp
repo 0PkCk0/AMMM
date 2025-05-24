@@ -39,15 +39,7 @@ vector<vector<int>> corrector(vector<vector<int>> x, const vector<vector<int>> m
     if (x[i][max_i] != 0)
     {
       x[i][max_i] = 0;
-      int max_loc = 0;
-      for (int j = 0; j < N; ++j)
-      {
-        if (x[max_i][j] == 0 && m[max_i][j] > m[max_i][max_loc] && j != max_i)
-        {
-          max_loc = j;
-        }
-      }
-      x[max_i][max_loc] = 1;
+      x[max_i][i] = 1;
     }
   }
 
