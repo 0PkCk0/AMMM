@@ -240,6 +240,6 @@ int main() {
   cout << "The only greedy Solution:" << endl;
   buildAcyclicPriority(m, N);
   
-  grasp(m, 0.1);
+  grasp(m, 0.3);
   return 0;
 }
