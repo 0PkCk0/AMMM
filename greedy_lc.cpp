@@ -44,6 +44,26 @@ void local_search_order(vector<int>& order, const vector<vector<int>>& m) {
           }
       }
   }
+  int counter=0;
+  vector<vector<int>> y(N, vector<int>(N, 0));
+  for (int i = 0; i < N; ++i) {
+      for (int j = i + 1; j < N; ++j) {
+          int u = order[i];
+          int v = order[j];
+          y[u][v] = 1;  
+      }
+  }
+
+  for (int i = 0; i < N; ++i) {
+    for (int j = 0; j < N; ++j) {
+      if (y[i][j] == 1)
+        counter += m[i][j];
+      cout << y[i][j] << " ";
+    }
+    cout << endl;
+  }
+
+  cout << "Points with greedy solution and local search enhancement: "<< counter << endl;
 }
 
 void buildAcyclicPriority(const vector<vector<int>> &m, int N) {
@@ -89,26 +109,6 @@ void buildAcyclicPriority(const vector<vector<int>> &m, int N) {
   counter = 0;
   cout << "The greedy + local search Solution:" << endl;
   local_search_order(order, m);
-
-  vector<vector<int>> y(N, vector<int>(N, 0));
-  for (int i = 0; i < N; ++i) {
-      for (int j = i + 1; j < N; ++j) {
-          int u = order[i];
-          int v = order[j];
-          y[u][v] = 1;  
-      }
-  }
-
-  for (int i = 0; i < N; ++i) {
-    for (int j = 0; j < N; ++j) {
-      if (y[i][j] == 1)
-        counter += m[i][j];
-      cout << y[i][j] << " ";
-    }
-    cout << endl;
-  }
-
-  cout << "Points with greedy solution and local search enhancement: "<< counter << endl;
 }
 
 void grasp(const vector<vector<int>>& m, float alpha) {
