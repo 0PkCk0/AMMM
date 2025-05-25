@@ -183,6 +183,9 @@ void grasp(const vector<vector<int>>& m, float alpha) {
   auto end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = end - start;
   std::cout << "grasp elapsed time: " << elapsed.count() << " seconds\n";
+
+  local_search_order(order, m);
+  cout << "This is GRASP + local search "<<endl;
 }
 
 int main() {
@@ -237,6 +240,6 @@ int main() {
   cout << "The only greedy Solution:" << endl;
   buildAcyclicPriority(m, N);
   
-  grasp(m, 0.3);
+  grasp(m, 0.1);
   return 0;
 }
