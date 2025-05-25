@@ -8,6 +8,7 @@
 #include <ostream>
 #include <sstream>
 #include <vector>
+#include <chrono>
 
 using namespace std;
 
@@ -24,6 +25,7 @@ int evaluate_order(const vector<int>& order, const vector<vector<int>>& m) {
 }
 
 void local_search_order(vector<int>& order, const vector<vector<int>>& m) {
+  auto start = std::chrono::high_resolution_clock::now();
   int N = order.size();
   bool improved = true;
 
@@ -64,10 +66,14 @@ void local_search_order(vector<int>& order, const vector<vector<int>>& m) {
   }
 
   cout << "Points with greedy solution and local search enhancement: "<< counter << endl;
+
+  auto end = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> elapsed = end - start;
+  std::cout << "local_search_order elapsed time: " << elapsed.count() << " seconds\n";
 }
 
 void buildAcyclicPriority(const vector<vector<int>> &m, int N) {
-  
+  auto start = std::chrono::high_resolution_clock::now();
   vector<pair<int,int>> node_score; 
   for (int i = 0; i < N; ++i) {
       int sum_row = 0;
@@ -106,12 +112,16 @@ void buildAcyclicPriority(const vector<vector<int>> &m, int N) {
   }
 
   cout << "Points with only greedy: " << counter << endl;
+  auto end = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> elapsed = end - start;
+  std::cout << "greedy elapsed time: " << elapsed.count() << " seconds\n";
   counter = 0;
   cout << "The greedy + local search Solution:" << endl;
   local_search_order(order, m);
 }
 
 void grasp(const vector<vector<int>>& m, float alpha) {
+  auto start = std::chrono::high_resolution_clock::now();
   int N = m.size();
   vector<int> order;
   vector<bool> chosen(N, false);
@@ -170,6 +180,9 @@ void grasp(const vector<vector<int>>& m, float alpha) {
     cout << endl;
   }
   cout << "Points with GRASP solution: " << counter << endl;
+  auto end = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> elapsed = end - start;
+  std::cout << "grasp elapsed time: " << elapsed.count() << " seconds\n";
 }
 
 int main() {
@@ -224,6 +237,6 @@ int main() {
   cout << "The only greedy Solution:" << endl;
   buildAcyclicPriority(m, N);
   
-  grasp(m, 0.1);
+  grasp(m, 0.3);
   return 0;
 }
